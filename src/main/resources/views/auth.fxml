@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.restaurant.luch.controllers.AuthController" style="-fx-font-family: 'Segoe UI';">
+
+    <center>
+        <StackPane style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #0C6038 0%, #2D4C39 100%); -fx-min-width: 800; -fx-min-height: 600;">
+
+            <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 50;" HBox.hgrow="ALWAYS">
+                <VBox spacing="20" style="-fx-text-fill: white;">
+                    <Label text="🍽️ РЕСТОРАН ЛУЧ" style="-fx-font-size: 36; -fx-text-fill: white; -fx-font-weight: bold;" />
+                    <Label text="Добро пожаловать!" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+                    <VBox spacing="12" style="-fx-padding: 20 0;">
+                        <HBox spacing="12" alignment="TOP_LEFT">
+                            <Label text="✓" style="-fx-font-size: 16; -fx-text-fill: #FFD2A1; -fx-font-weight: bold;" />
+                            <Label text="Быстрое и удобное бронирование" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                        </HBox>
+                        <HBox spacing="12" alignment="TOP_LEFT">
+                            <Label text="✓" style="-fx-font-size: 16; -fx-text-fill: #FFD2A1; -fx-font-weight: bold;" />
+                            <Label text="Доставка прямо к вам домой" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                        </HBox>
+                        <HBox spacing="12" alignment="TOP_LEFT">
+                            <Label text="✓" style="-fx-font-size: 16; -fx-text-fill: #FFD2A1; -fx-font-weight: bold;" />
+                            <Label text="Скидки и бонусы постоянных клиентов" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                        </HBox>
+                        <HBox spacing="12" alignment="TOP_LEFT">
+                            <Label text="✓" style="-fx-font-size: 16; -fx-text-fill: #FFD2A1; -fx-font-weight: bold;" />
+                            <Label text="Личный кабинет со скидками" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <VBox alignment="CENTER_RIGHT" spacing="0">
+                <VBox fx:id="loginCard" spacing="20" style="-fx-background-color: white; -fx-padding: 40; -fx-min-width: 350; -fx-border-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);" managed="true" visible="true">
+                    <Label text="ВХОД" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #0C6038;" alignment="CENTER" />
+                    <Separator />
+                    <VBox spacing="5">
+                        <Label text="Email:" style="-fx-font-weight: bold; -fx-font-size: 12;" />
+                        <TextField fx:id="loginEmailField" promptText="Введите email" style="-fx-padding: 10; -fx-font-size: 13;" />
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Пароль:" style="-fx-font-weight: bold; -fx-font-size: 12;" />
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <StackPane HBox.hgrow="ALWAYS">
+                                <PasswordField fx:id="loginPasswordField" promptText="Введите пароль" style="-fx-padding: 10; -fx-font-size: 13;" visible="true" managed="true" />
+                                <TextField fx:id="loginPasswordVisibleField" promptText="Введите пароль" style="-fx-padding: 10; -fx-font-size: 13;" visible="false" managed="false" />
+                            </StackPane>
+                            <Button fx:id="loginPasswordEyeButton" text="👁" style="-fx-font-size: 16; -fx-background-color: transparent;" onAction="#toggleLoginPasswordVisibility" />
+                        </HBox>
+                    </VBox>
+                    <HBox spacing="10" alignment="CENTER_RIGHT">
+                        <Hyperlink text="Забыли пароль?" style="-fx-font-size: 12;" onAction="#resetPassword" />
+                    </HBox>
+                    <Button text="ВХОД" style="-fx-font-size: 14; -fx-padding: 12; -fx-background-color: #0C6038; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" onAction="#login" prefHeight="40" />
+                    <Separator />
+                    <HBox spacing="5" alignment="CENTER" style="-fx-font-size: 12;">
+                        <Label text="Нет аккаунта?" />
+                        <Hyperlink text="Зарегистрируйтесь" style="-fx-font-size: 12;" onAction="#switchToRegister" />
+                    </HBox>
+                    <Label fx:id="loginErrorLabel" text="" style="-fx-text-fill: #d32f2f; -fx-font-size: 11;" wrapText="true" />
+                </VBox>
+
+                <VBox fx:id="registerCard" spacing="15" style="-fx-background-color: white; -fx-padding: 30; -fx-min-width: 350; -fx-border-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);" managed="true" visible="false">
+                    <Label text="РЕГИСТРАЦИЯ" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #0C6038;" alignment="CENTER" />
+                    <Separator />
+                    <VBox spacing="3">
+                        <Label text="Имя:" style="-fx-font-weight: bold; -fx-font-size: 11;" />
+                        <TextField fx:id="registerNameField" promptText="Ваше имя" style="-fx-padding: 8; -fx-font-size: 12;" />
+                    </VBox>
+                    <VBox spacing="3">
+                        <Label text="Email:" style="-fx-font-weight: bold; -fx-font-size: 11;" />
+                        <TextField fx:id="registerEmailField" promptText="your@email.com" style="-fx-padding: 8; -fx-font-size: 12;" />
+                    </VBox>
+                    <VBox spacing="3">
+                        <Label text="Телефон:" style="-fx-font-weight: bold; -fx-font-size: 11;" />
+                        <TextField fx:id="registerPhoneField" promptText="+7 (999) 000-00-00" style="-fx-padding: 8; -fx-font-size: 12;" />
+                    </VBox>
+                    <VBox spacing="3">
+                        <Label text="Пароль:" style="-fx-font-weight: bold; -fx-font-size: 11;" />
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <StackPane HBox.hgrow="ALWAYS">
+                                <PasswordField fx:id="registerPasswordField" promptText="Минимум 8 символов" style="-fx-padding: 8; -fx-font-size: 12;" visible="true" managed="true" />
+                                <TextField fx:id="registerPasswordVisibleField" promptText="Минимум 8 символов" style="-fx-padding: 8; -fx-font-size: 12;" visible="false" managed="false" />
+                            </StackPane>
+                            <Button fx:id="registerPasswordEyeButton" text="👁" style="-fx-font-size: 16; -fx-background-color: transparent;" onAction="#toggleRegisterPasswordVisibility" />
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="3">
+                        <Label text="Подтверждение:" style="-fx-font-weight: bold; -fx-font-size: 11;" />
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <StackPane HBox.hgrow="ALWAYS">
+                                <PasswordField fx:id="registerConfirmPasswordField" promptText="Повторите пароль" style="-fx-padding: 8; -fx-font-size: 12;" visible="true" managed="true" />
+                                <TextField fx:id="registerConfirmPasswordVisibleField" promptText="Повторите пароль" style="-fx-padding: 8; -fx-font-size: 12;" visible="false" managed="false" />
+                            </StackPane>
+                            <Button fx:id="registerConfirmPasswordEyeButton" text="👁" style="-fx-font-size: 16; -fx-background-color: transparent;" onAction="#toggleRegisterConfirmPasswordVisibility" />
+                        </HBox>
+                    </VBox>
+                    <Button text="ЗАРЕГИСТРИРОВАТЬСЯ" style="-fx-font-size: 13; -fx-padding: 10; -fx-background-color: #0C6038; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" onAction="#register" prefHeight="35" />
+                    <Label fx:id="registerErrorLabel" text="" style="-fx-text-fill: #d32f2f; -fx-font-size: 10;" wrapText="true" />
+                    <HBox spacing="5" alignment="CENTER" style="-fx-font-size: 11;">
+                        <Label text="Уже есть аккаунт?" />
+                        <Hyperlink text="Войдите" style="-fx-font-size: 11;" onAction="#switchToLogin" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 15;" alignment="CENTER">
+            <Label text="📞 +7 (999) 123-45-67 | 📧 info@luch.ru | 🕐 Пн-Вс 10:00-23:00" style="-fx-text-fill: #FFD2A1; -fx-font-size: 12;" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

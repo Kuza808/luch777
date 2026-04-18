@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.restaurant.luch.controllers.BookingController" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14;">
+
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: #0C6038; -fx-padding: 15;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="◀ Назад" style="-fx-font-size: 12; -fx-padding: 8; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#goBack" />
+                <Label text="📅 Бронирование столика" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- ФОРМА БРОНИРОВАНИЯ -->
+                <VBox spacing="15" style="-fx-border-color: #FFD2A1; -fx-border-width: 1; -fx-border-style: solid; -fx-padding: 20; -fx-border-radius: 8;">
+
+                    <Label text="Информация о гостях" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                    <!-- ИМЕНА -->
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Ваше имя:" style="-fx-font-weight: bold;" />
+                            <TextField fx:id="guestNameField" promptText="Введите имя" style="-fx-padding: 8;" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Фамилия:" style="-fx-font-weight: bold;" />
+                            <TextField fx:id="guestLastNameField" promptText="Введите фамилию" style="-fx-padding: 8;" />
+                        </VBox>
+                    </HBox>
+
+                    <!-- КОНТАКТЫ -->
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Телефон:" style="-fx-font-weight: bold;" />
+                            <TextField fx:id="guestPhoneField" promptText="+7 (999) 000-00-00" style="-fx-padding: 8;" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Email:" style="-fx-font-weight: bold;" />
+                            <TextField fx:id="guestEmailField" promptText="your@email.com" style="-fx-padding: 8;" />
+                        </VBox>
+                    </HBox>
+
+                    <Separator />
+
+                    <Label text="Параметры бронирования" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                    <!-- ДАТА И ВРЕМЯ -->
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Дата:" style="-fx-font-weight: bold;" />
+                            <DatePicker fx:id="bookingDatePicker" style="-fx-padding: 8;" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Время:" style="-fx-font-weight: bold;" />
+                            <ComboBox fx:id="bookingTimeCombo" style="-fx-padding: 8;">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="10:00" />
+                                        <String fx:value="10:30" />
+                                        <String fx:value="11:00" />
+                                        <String fx:value="11:30" />
+                                        <String fx:value="12:00" />
+                                        <String fx:value="12:30" />
+                                        <String fx:value="13:00" />
+                                        <String fx:value="18:00" />
+                                        <String fx:value="18:30" />
+                                        <String fx:value="19:00" />
+                                        <String fx:value="19:30" />
+                                        <String fx:value="20:00" />
+                                        <String fx:value="20:30" />
+                                        <String fx:value="21:00" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- КОЛИЧЕСТВО ГОСТЕЙ И СТОЛИК -->
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Количество гостей:" style="-fx-font-weight: bold;" />
+                            <Spinner fx:id="guestCountSpinner" initialValue="2" min="1" max="20" editable="true" style="-fx-padding: 8;" onInputMethodTextChanged="#updateAvailableTables" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Выберите столик:" style="-fx-font-weight: bold;" />
+                            <ComboBox fx:id="tableCombo" style="-fx-padding: 8;" promptText="Доступные столики..." />
+                        </VBox>
+                    </HBox>
+
+                    <Separator />
+
+                    <!-- ПОЖЕЛАНИЯ -->
+                    <VBox spacing="5">
+                        <Label text="Особые пожелания:" style="-fx-font-weight: bold;" />
+                        <TextArea fx:id="bookingCommentsArea" promptText="День рождения, годовщина, аллергии и т.д." wrapText="true" style="-fx-padding: 8;" prefRowCount="4" />
+                    </VBox>
+
+                    <!-- ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ -->
+                    <Separator />
+                    <Label text="Дополнительные услуги" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                    <HBox spacing="15">
+                        <CheckBox fx:id="wineCheckBox" text="🍷 Подготовить список вин (+500 ₽)" />
+                        <CheckBox fx:id="decorCheckBox" text="🎉 Украшение столика (+1000 ₽)" />
+                    </HBox>
+
+                    <HBox spacing="15">
+                        <CheckBox fx:id="cakeCheckBox" text="🎂 Заказ торта (свой/от ресторана)" />
+                        <CheckBox fx:id="musicCheckBox" text="🎵 Живая музыка (+2000 ₽)" />
+                    </HBox>
+
+                </VBox>
+
+                <!-- СТОИМОСТЬ -->
+                <VBox spacing="10" style="-fx-border-color: #FFD2A1; -fx-border-width: 1; -fx-border-style: solid; -fx-padding: 15; -fx-border-radius: 8;">
+                    <Label text="Итоговая стоимость:" style="-fx-font-size: 14; -fx-font-weight: bold;" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Сумма доп. услуг:" style="-fx-font-size: 13;" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="totalPriceLabel" text="0 ₽" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+                    </HBox>
+                </VBox>
+
+                <!-- КНОПКИ -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="✓ ЗАБРОНИРОВАТЬ СТОЛИК" style="-fx-font-size: 14; -fx-padding: 12; -fx-background-color: #808847; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#bookTable" prefWidth="200" prefHeight="40" />
+                    <Button text="✗ ОТМЕНА" style="-fx-font-size: 12; -fx-padding: 10; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#goBack" prefWidth="100" prefHeight="40" />
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/fxml"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.restaurant.luch.controllers.AuthController"
+      alignment="CENTER"
+      style="-fx-background-color: linear-gradient(to bottom right, #8B4513, #A0522D);"
+      prefWidth="1000" prefHeight="700">
+
+    <!-- Основной контейнер -->
+    <HBox alignment="CENTER" spacing="0" prefWidth="1000" prefHeight="700">
+
+        <!-- Левая панель с информацией -->
+        <VBox alignment="CENTER" spacing="30" prefWidth="500"
+              style="-fx-background-color: #8B4513; -fx-padding: 50;">
+
+            <!-- Логотип и название -->
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="🍽️" style="-fx-font-size: 64px;"/>
+                <VBox alignment="CENTER" spacing="5">
+                    <Label text="Ресторан 'Луч'"
+                           style="-fx-text-fill: #F5F5DC; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+                    <Label text="Традиции качества с 1995 года"
+                           style="-fx-text-fill: #D2B48C; -fx-font-size: 16px;"/>
+                </VBox>
+            </VBox>
+
+            <!-- Преимущества -->
+            <VBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 20 0;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="✓" style="-fx-text-fill: #32CD32; -fx-font-size: 16px;"/>
+                    <Label text="Фермерские продукты" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px;"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="✓" style="-fx-text-fill: #32CD32; -fx-font-size: 16px;"/>
+                    <Label text="Авторские рецепты" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px;"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="✓" style="-fx-text-fill: #32CD32; -fx-font-size: 16px;"/>
+                    <Label text="Банкеты и кейтеринг" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px;"/>
+                </HBox>
+            </VBox>
+
+        </VBox>
+
+        <!-- Правая панель с формой -->
+        <VBox alignment="CENTER" spacing="30" prefWidth="500"
+              style="-fx-background-color: #FFF8DC; -fx-padding: 50;">
+
+            <!-- Заголовок формы -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Добро пожаловать"
+                       style="-fx-text-fill: #8B4513; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                <Label text="Войдите в свою учетную запись"
+                       style="-fx-text-fill: #A0522D; -fx-font-size: 14px;"/>
+            </VBox>
+
+            <!-- Форма входа -->
+            <VBox spacing="20" alignment="CENTER" prefWidth="350">
+
+                <!-- Поля ввода -->
+                <VBox spacing="15" prefWidth="350">
+                    <VBox spacing="5">
+                        <Label text="Email" style="-fx-text-fill: #8B4513; -fx-font-weight: bold;"/>
+                        <TextField fx:id="loginEmailField" promptText="Введите ваш email"
+                                   style="-fx-background-color: white; -fx-border-color: #D2B48C; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 8 12; -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Пароль" style="-fx-text-fill: #8B4513; -fx-font-weight: bold;"/>
+                        <PasswordField fx:id="loginPasswordField" promptText="Введите ваш пароль"
+                                       style="-fx-background-color: white; -fx-border-color: #D2B48C; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 8 12; -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <!-- Ошибка входа -->
+                    <Label fx:id="loginErrorLabel"
+                           style="-fx-text-fill: #CD5C5C; -fx-font-size: 12px; -fx-background-color: #FFE4E1; -fx-background-radius: 3; -fx-padding: 5 10; -fx-alignment: CENTER;"
+                           visible="false" wrapText="true" prefWidth="350"/>
+
+                    <!-- Кнопка входа -->
+                    <Button fx:id="loginButton" text="Войти" onAction="#handleLogin"
+                            onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+                            style="-fx-background-color: #8B4513; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-border-radius: 5; -fx-padding: 12 30; -fx-font-size: 14px; -fx-cursor: hand;"/>
+                </VBox>
+
+                <!-- Демо доступ -->
+                <VBox spacing="10" alignment="CENTER"
+                      style="-fx-background-color: #F5F5DC; -fx-background-radius: 8; -fx-border-color: #D2B48C; -fx-border-width: 1; -fx-border-radius: 8; -fx-padding: 15;">
+                    <Label text="Демо доступ:" style="-fx-text-fill: #8B4513; -fx-font-weight: bold;"/>
+                    <Label text="Email: guest@luch.ru" style="-fx-text-fill: #A0522D;"/>
+                    <Label text="Пароль: 123456" style="-fx-text-fill: #A0522D;"/>
+                </VBox>
+
+            </VBox>
+
+        </VBox>
+
+    </HBox>
+
+</VBox>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.restaurant.luch.controllers.AdminController" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14;">
+
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: #0C6038; -fx-padding: 15;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="◀ Назад" style="-fx-font-size: 12; -fx-padding: 8; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#goBack" />
+                <Label text="⚙️ АДМИН-ПАНЕЛЬ" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Роль: АДМИНИСТРАТОР" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- БОКОВОЕ МЕНЮ -->
+    <left>
+        <VBox spacing="5" style="-fx-background-color: #2D4C39; -fx-padding: 15; -fx-min-width: 200; -fx-border-right-width: 1; -fx-border-right-color: #FFD2A1; -fx-border-right-style: solid;">
+            <Label text="МЕНЮ" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #FFD2A1;" />
+            <Button text="📋 Все блюда" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showAllDishes" />
+            <Button text="➕ Добавить блюдо" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showAddDishForm" />
+            <Button text="✏️ Редактировать блюдо" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showEditDishForm" />
+            <Button text="🗑️ Удалить блюдо" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showDeleteDishForm" />
+
+            <Separator style="-fx-padding: 10 0;" />
+
+            <Label text="ЗАКАЗЫ" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #FFD2A1;" />
+            <Button text="📦 Все заказы" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showAllOrders" />
+            <Button text="✓ Подтвердить заказ" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#confirmOrder" />
+            <Button text="🚚 Отметить доставку" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#markDelivered" />
+
+            <Separator style="-fx-padding: 10 0;" />
+
+            <Label text="БРОНИРОВАНИЯ" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #FFD2A1;" />
+            <Button text="📋 Все бронирования" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showAllBookings" />
+            <Button text="✓ Подтвердить бронь" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#confirmBooking" />
+            <Button text="✗ Отменить бронь" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#cancelBooking" />
+
+            <Separator style="-fx-padding: 10 0;" />
+
+            <Label text="ПОЛЬЗОВАТЕЛИ" style="-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #FFD2A1;" />
+            <Button text="👥 Все пользователи" style="-fx-padding: 10; -fx-alignment: CENTER_LEFT; -fx-font-size: 12; -fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;" prefWidth="180" onAction="#showAllUsers" />
+        </VBox>
+    </left>
+
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-padding: 20;">
+
+            <!-- ВКЛАДКА 1: СПИСОК БЛЮД -->
+            <VBox fx:id="dishesList" spacing="15">
+                <Label text="📋 Все блюда в меню" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <HBox spacing="10">
+                    <TextField fx:id="searchDishField" promptText="Поиск блюда..." HBox.hgrow="ALWAYS" style="-fx-padding: 8; -fx-border-color: #FFD2A1; -fx-border-radius: 5;" />
+                    <Button text="🔍 Поиск" style="-fx-padding: 8; -fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#searchDishes" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="dishesTable" style="-fx-font-size: 12;">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="50" />
+                            <TableColumn text="Название" prefWidth="150" />
+                            <TableColumn text="Категория" prefWidth="100" />
+                            <TableColumn text="Цена" prefWidth="80" />
+                            <TableColumn text="Описание" prefWidth="200" />
+                            <TableColumn text="Действия" prefWidth="120" />
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+            <!-- ВКЛАДКА 2: ДОБАВИТЬ/РЕДАКТИРОВАТЬ БЛЮДО -->
+            <VBox fx:id="addDishForm" spacing="15" style="-fx-padding: 20;">
+                <Label text="➕ Добавить / Редактировать блюдо" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <VBox spacing="10" style="-fx-border-color: #FFD2A1; -fx-border-width: 1; -fx-border-style: solid; -fx-padding: 15;">
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Название блюда:" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                            <TextField fx:id="dishNameField" promptText="Введите название" style="-fx-padding: 8;" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Категория:" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                            <ComboBox fx:id="dishCategoryCombo" style="-fx-padding: 8;">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Закуски" />
+                                        <String fx:value="Первые блюда" />
+                                        <String fx:value="Вторые блюда" />
+                                        <String fx:value="Напитки" />
+                                        <String fx:value="Десерты" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Цена (₽):" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                            <TextField fx:id="dishPriceField" promptText="0.00" style="-fx-padding: 8;" />
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Наличие:" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                            <CheckBox fx:id="dishAvailableCheckBox" text="Доступно" selected="true" />
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="5">
+                        <Label text="Описание:" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                        <TextArea fx:id="dishDescriptionArea" promptText="Опишите блюдо..." wrapText="true" style="-fx-padding: 8;" prefRowCount="4" />
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Ингредиенты (через запятую):" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                        <TextArea fx:id="dishIngredientsArea" promptText="Перец, лук, чеснок..." wrapText="true" style="-fx-padding: 8;" prefRowCount="3" />
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Загрузить фото:" style="-fx-font-weight: bold; -fx-text-fill: #2D4C39;" />
+                        <HBox spacing="10">
+                            <Button text="📤 Выбрать фото" style="-fx-padding: 8; -fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#selectDishImage" />
+                            <Label fx:id="selectedImageLabel" text="(Нет файла)" style="-fx-text-fill: #999;" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="✓ СОХРАНИТЬ" style="-fx-font-size: 12; -fx-padding: 12; -fx-background-color: #0C6038; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#saveDish" prefWidth="150" />
+                    <Button text="✗ ОТМЕНА" style="-fx-font-size: 12; -fx-padding: 12; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#cancelDishForm" prefWidth="150" />
+                </HBox>
+            </VBox>
+
+            <!-- ВКЛАДКА 3: ЗАКАЗЫ -->
+            <VBox fx:id="ordersList" spacing="15">
+                <Label text="📦 Управление заказами" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <HBox spacing="10">
+                    <ComboBox fx:id="orderStatusFilter" style="-fx-padding: 8;" promptText="Фильтр по статусу">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Все" />
+                                <String fx:value="PENDING" />
+                                <String fx:value="CONFIRMED" />
+                                <String fx:value="PREPARING" />
+                                <String fx:value="READY" />
+                                <String fx:value="COMPLETED" />
+                                <String fx:value="CANCELLED" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <Button text="🔄 Обновить" style="-fx-padding: 8; -fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#refreshOrders" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="ordersTable" style="-fx-font-size: 12;">
+                        <columns>
+                            <TableColumn text="ID заказа" prefWidth="80" />
+                            <TableColumn text="Клиент" prefWidth="100" />
+                            <TableColumn text="Дата" prefWidth="100" />
+                            <TableColumn text="Сумма" prefWidth="80" />
+                            <TableColumn text="Статус" prefWidth="100" />
+                            <TableColumn text="Действия" prefWidth="150" />
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+            <!-- ВКЛАДКА 4: БРОНИРОВАНИЯ -->
+            <VBox fx:id="bookingsList" spacing="15">
+                <Label text="📋 Управление бронированиями" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <HBox spacing="10">
+                    <ComboBox fx:id="bookingStatusFilter" promptText="Фильтр по статусу" style="-fx-padding: 8;">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Все" />
+                                <String fx:value="PENDING" />
+                                <String fx:value="CONFIRMED" />
+                                <String fx:value="SEATED" />
+                                <String fx:value="COMPLETED" />
+                                <String fx:value="CANCELLED" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <Button text="🔄 Обновить" style="-fx-padding: 8; -fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#refreshBookings" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="bookingsTable" style="-fx-font-size: 12;">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="50" />
+                            <TableColumn text="Гость" prefWidth="120" />
+                            <TableColumn text="Телефон" prefWidth="100" />
+                            <TableColumn text="Дата" prefWidth="80" />
+                            <TableColumn text="Время" prefWidth="60" />
+                            <TableColumn text="Гостей" prefWidth="60" />
+                            <TableColumn text="Столик" prefWidth="100" />
+                            <TableColumn text="Статус" prefWidth="100" />
+                            <TableColumn text="Действия" prefWidth="150" />
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+            <!-- ВКЛАДКА 5: ПОЛЬЗОВАТЕЛИ -->
+            <VBox fx:id="usersList" spacing="15">
+                <Label text="👥 Пользователи системы" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <HBox spacing="10">
+                    <TextField fx:id="userSearchField" promptText="Поиск по email или имени..." HBox.hgrow="ALWAYS" style="-fx-padding: 8; -fx-border-color: #FFD2A1; -fx-border-radius: 5;" />
+                    <Button text="🔍 Поиск" style="-fx-padding: 8; -fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#searchUsers" />
+                </HBox>
+
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="usersTable" style="-fx-font-size: 12;">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="50" />
+                            <TableColumn text="Имя" prefWidth="120" />
+                            <TableColumn text="Email" prefWidth="180" />
+                            <TableColumn text="Телефон" prefWidth="100" />
+                            <TableColumn text="Админ" prefWidth="60" />
+                            <TableColumn text="Заблокирован" prefWidth="80" />
+                            <TableColumn text="Действия" prefWidth="120" />
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

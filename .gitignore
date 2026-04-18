@@ -1,0 +1,92 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.iml
+*.iws
+*.ipr
+
+# Build
+target/
+out/
+build/
+dist/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
+*.releaseBackup
+release.properties
+pom.xml.versionsBackup
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+*.log
+logs/
+*.tmp
+temp/
+cache/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Credentials
+.env
+.env.local
+.env.*.local
+credentials.json
+secrets.txt
+
+# Dependencies
+lib/
+dependency-reduced-pom.xml
+
+# JavaFX
+/javafx-sdk/
+
+# IntelliJ
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/libraries/
+.idea/shelf
+
+# VSCode
+.vscode/
+.history/
+
+# Node (if using npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Misc
+*.bak
+*.backup
+*.orig
+.classpath
+.project
+.settings/

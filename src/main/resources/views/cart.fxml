@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.restaurant.luch.controllers.CartController" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14;">
+
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: #0C6038; -fx-padding: 15;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="◀ Назад" style="-fx-font-size: 12; -fx-padding: 8; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#goBack" />
+                <Label text="🛒 Ваша Корзина" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+    <center>
+        <HBox spacing="20" style="-fx-padding: 20;">
+
+            <!-- ЛЕВАЯ ЧАСТЬ: ТОВАРЫ В КОРЗИНЕ -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="Товары в корзине:" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="cartItemsContainer" spacing="10" style="-fx-padding: 10;">
+                        <!-- Динамически добавляются элементы корзины -->
+                    </VBox>
+                </ScrollPane>
+
+                <!-- ПУСТОЕ СОСТОЯНИЕ -->
+                <Label fx:id="emptyCartLabel" text="Корзина пуста" style="-fx-font-size: 14; -fx-text-fill: #999;" alignment="CENTER" />
+            </VBox>
+
+            <!-- ПРАВАЯ ЧАСТЬ: ИТОГИ И ОФОРМЛЕНИЕ -->
+            <VBox spacing="15" style="-fx-border-left-width: 1; -fx-border-left-color: #ddd; -fx-border-left-style: solid; -fx-padding: 0 0 0 20; -fx-min-width: 300;">
+                <Label text="Итоги" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+
+                <Separator />
+
+                <!-- СУММА ТОВАРОВ -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Сумма товаров:" style="-fx-font-size: 13;" HBox.hgrow="ALWAYS" />
+                    <Label fx:id="subtotalLabel" text="0 ₽" style="-fx-font-size: 13; -fx-font-weight: bold;" />
+                </HBox>
+
+                <!-- ДОСТАВКА -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Доставка:" style="-fx-font-size: 13;" HBox.hgrow="ALWAYS" />
+                    <ComboBox fx:id="deliveryCombo" style="-fx-padding: 5;" onAction="#updateTotal">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Самовывоз (0 ₽)" />
+                                <String fx:value="Доставка (200 ₽)" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+
+                <!-- НАЛОГ -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Налог (10%):" style="-fx-font-size: 13;" HBox.hgrow="ALWAYS" />
+                    <Label fx:id="taxLabel" text="0 ₽" style="-fx-font-size: 13; -fx-font-weight: bold;" />
+                </HBox>
+
+                <Separator />
+
+                <!-- ИТОГОВАЯ СУММА -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="ИТОГО:" style="-fx-font-size: 16; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" />
+                    <Label fx:id="totalLabel" text="0 ₽" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #0C6038;" />
+                </HBox>
+
+                <Separator />
+
+                <!-- СПОСОБ ОПЛАТЫ -->
+                <Label text="Способ оплаты:" style="-fx-font-size: 13; -fx-font-weight: bold;" />
+                <ComboBox fx:id="paymentCombo" style="-fx-padding: 8;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="💳 Карта" />
+                            <String fx:value="💰 Наличные" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <!-- КОММЕНТАРИЙ К ЗАКАЗУ -->
+                <Label text="Комментарий:" style="-fx-font-size: 13; -fx-font-weight: bold;" />
+                <TextArea fx:id="commentArea" promptText="Напишите пожелания к заказу..." wrapText="true" style="-fx-padding: 8;" prefRowCount="4" />
+
+                <Separator />
+
+                <!-- КНОПКИ ДЕЙСТВИЙ -->
+                <Button fx:id="checkoutBtn" text="✓ ОФОРМИТЬ ЗАКАЗ" style="-fx-font-size: 14; -fx-padding: 12; -fx-background-color: #808847; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#checkout" prefHeight="40" />
+
+                <Button fx:id="backBtn" text="Продолжить покупки" style="-fx-font-size: 12; -fx-padding: 8; -fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;" onAction="#goBack" />
+
+                <Button text="Очистить корзину" style="-fx-font-size: 12; -fx-padding: 8; -fx-text-fill: #6C27DA; -fx-background-color: transparent; -fx-cursor: hand;" onAction="#clearCart" />
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>

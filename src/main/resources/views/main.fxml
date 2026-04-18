@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.restaurant.luch.controllers.MainController" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14;">
+
+    <!-- HEADER / НАВИГАЦИЯ -->
+    <top>
+        <VBox style="-fx-background-color: #0C6038; -fx-padding: 15;">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="🍽️ Ресторан ЛУЧ" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="👤 Профиль" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#goToCabinet" />
+                <Button text="🛒 Корзина" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#goToCart" />
+                <Button text="📅 Бронирование" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#goToBooking" />
+                <Button fx:id="adminButton" text="⚙️ Админ" style="-fx-background-color: #6C27DA; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#goToAdmin" />
+                <Button text="🚪 Выход" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#logout" />
+            </HBox>
+
+            <!-- ПОИСК И ФИЛЬТРЫ -->
+            <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                <TextField fx:id="searchField" promptText="Поиск блюд..." style="-fx-border-color: #FFD2A1; -fx-border-radius: 5; -fx-padding: 8;" HBox.hgrow="ALWAYS" />
+                <ComboBox fx:id="categoryCombo" promptText="Категория" style="-fx-border-color: #FFD2A1; -fx-border-radius: 5; -fx-padding: 8;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Все блюда" />
+                            <String fx:value="Закуски" />
+                            <String fx:value="Первые блюда" />
+                            <String fx:value="Вторые блюда" />
+                            <String fx:value="Напитки" />
+                            <String fx:value="Десерты" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Button text="🔍 Поиск" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8;" onAction="#searchDishes" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-padding: 20;">
+            <VBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
+                <!-- СПИСОК БЛЮД (GridPane) -->
+                <GridPane fx:id="dishesGrid" hgap="15" vgap="15" style="-fx-padding: 10;" alignment="CENTER" />
+
+                <!-- ПУСТОЕ СОСТОЯНИЕ -->
+                <Label fx:id="emptyLabel" text="Блюда не найдены" style="-fx-font-size: 16; -fx-text-fill: #999;" alignment="CENTER" />
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- FOOTER -->
+    <bottom>
+        <HBox style="-fx-background-color: #FFD2A1; -fx-padding: 15;" alignment="CENTER">
+            <Label text="📞 +7 (999) 123-45-67 | 📧 info@luch.ru | 🕐 Пн-Вс 10:00-23:00" style="-fx-text-fill: #2D4C39;" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

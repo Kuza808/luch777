@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.restaurant.luch.controllers.CabinetController">
+
+    <left>
+        <VBox spacing="10" style="-fx-background-color: #2D4C39; -fx-padding: 20;">
+            <Button text="Профиль" onAction="#showProfile"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+            <Button text="Мои заказы" onAction="#showOrders"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+            <Button text="Мои бронирования" onAction="#showBookings"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+            <Button text="Избранное" onAction="#showFavorites"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+            <Separator style="-fx-background-color: #FFD2A1;"/>
+            <Button text="Назад" onAction="#goBack"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+            <Button text="Выход" onAction="#logout"
+                    style="-fx-text-fill: white; -fx-background-color: transparent; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #ecf0f1;">
+
+            <!-- Панель профиля -->
+            <VBox fx:id="profileSection" spacing="15" style="-fx-padding: 20;">
+                <Label text="Личный кабинет" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0C6038;"/>
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Имя:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="userNameLabel" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="userEmailLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="userPhoneLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="Дата рождения:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label fx:id="userBirthdayLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+
+                <Separator/>
+
+                <Label text="Редактировать профиль" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0C6038;"/>
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Имя:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="editNameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="editEmailField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="editPhoneField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="Дата рождения:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <DatePicker fx:id="editBirthdayPicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+                <HBox spacing="10">
+                    <Button text="Сохранить" onAction="#saveProfile" style="-fx-background-color: #808847; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;"/>
+                    <Button text="Отмена" onAction="#cancelEdit" style="-fx-background-color: #FFD2A1; -fx-text-fill: #2D4C39; -fx-background-radius: 5; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Панель заказов -->
+            <VBox fx:id="ordersSection" spacing="15" style="-fx-padding: 20;" visible="false" managed="false">
+                <Label text="Мои заказы" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0C6038;"/>
+                <TableView fx:id="myOrdersTable" prefHeight="400">
+                    <columns>
+                        <TableColumn text="№ заказа" fx:id="orderIdCol"/>
+                        <TableColumn text="Дата" fx:id="orderDateCol"/>
+                        <TableColumn text="Сумма" fx:id="orderTotalCol"/>
+                        <TableColumn text="Статус" fx:id="orderStatusCol"/>
+                    </columns>
+                </TableView>
+                <Label fx:id="noOrdersLabel" text="У вас нет заказов" style="-fx-text-fill: gray;" visible="false"/>
+            </VBox>
+
+            <!-- Панель бронирований -->
+            <VBox fx:id="bookingsSection" spacing="15" style="-fx-padding: 20;" visible="false" managed="false">
+                <Label text="Мои бронирования" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0C6038;"/>
+                <TableView fx:id="myBookingsTable" prefHeight="400">
+                    <columns>
+                        <TableColumn text="Дата" fx:id="bookingDateCol"/>
+                        <TableColumn text="Время" fx:id="bookingTimeCol"/>
+                        <TableColumn text="Гостей" fx:id="guestsCol"/>
+                        <TableColumn text="Столик" fx:id="tableCol"/>
+                        <TableColumn text="Статус" fx:id="statusCol"/>
+                    </columns>
+                </TableView>
+                <Label fx:id="noBookingsLabel" text="У вас нет бронирований" style="-fx-text-fill: gray;" visible="false"/>
+            </VBox>
+
+            <!-- Панель избранного -->
+            <ScrollPane fx:id="favoritesSection" fitToWidth="true" visible="false" managed="false">
+                <VBox spacing="20" style="-fx-padding: 20;">
+                    <Label text="Избранные блюда" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0C6038;"/>
+                    <GridPane fx:id="favoritesGrid" hgap="15" vgap="15"/>
+                </VBox>
+            </ScrollPane>
+
+        </StackPane>
+    </center>
+</BorderPane>
